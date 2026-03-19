@@ -1,0 +1,56 @@
+import Wrapper from "../../../../components/warpper";
+import {Button, Table, type TableProps} from "antd";
+import {type ItemI, useTableStore} from "../../../../store/tableStore.ts";
+import type {ModalContentI} from "../../index.tsx";
+
+interface IProps {
+    openModal: ({variant, item}: ModalContentI) => void
+}
+
+const ListTable = ({openModal}: IProps) => {
+    const {items} = useTableStore()
+
+    const columns: TableProps<ItemI>['columns'] = [
+        {
+            title: 'Имя',
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: 'Возраст',
+            dataIndex: 'age',
+            key: 'age',
+        },
+        {
+            title: 'Дата рождения',
+            dataIndex: 'birthday',
+            key: 'birthday',
+        },
+        {
+            title: 'Действия',
+            dataIndex: 'action',
+            key: 'action',
+
+            render: (_, cur) => {
+
+                return <div className={'flex items-center gap-3 w-full'}>
+                    <Button className={'w-full'} color="primary" danger
+                            onClick={() => openModal({variant: "delete", item: cur})}>
+                        Удалить
+                    </Button>
+                    <Button className={'w-full'} color="primary" variant="outlined"
+                            onClick={() => openModal({variant: "edit", item: cur})}>
+                        Редактировать
+                    </Button>
+                </div>
+            },
+        },
+    ]
+    return (
+        <Wrapper>
+            <Table scroll={{x: 'max-content'}} pagination={false} rowKey={"id"} dataSource={items} columns={columns}/>
+        </Wrapper>
+    );
+};
+
+export default ListTable;
