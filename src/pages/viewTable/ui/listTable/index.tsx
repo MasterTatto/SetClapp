@@ -15,16 +15,19 @@ const ListTable = ({openModal}: IProps) => {
             title: 'Имя',
             dataIndex: 'name',
             key: 'name',
+            sorter: (a, b) => a.name.localeCompare(b.name),
         },
         {
             title: 'Возраст',
             dataIndex: 'age',
             key: 'age',
+            sorter: (a, b) => a.age - b.age,
         },
         {
             title: 'Дата рождения',
             dataIndex: 'birthday',
             key: 'birthday',
+            sorter: (a, b) => new Date(a.birthday).getTime() - new Date(b.birthday).getTime(),
         },
         {
             title: 'Действия',
