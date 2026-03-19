@@ -10,6 +10,8 @@ export interface ItemI {
 
 interface TableStoreI {
     items: ItemI[],
+    search: string,
+    setSearch: (m: string) => void,
     addItem: (payload: Omit<ItemI, "id">) => void
     removeItem: (id: string) => void
     updateItem: (id: string, payload: Partial<Omit<ItemI, "id">>) => void
@@ -18,6 +20,13 @@ interface TableStoreI {
 export const useTableStore = create<TableStoreI>((set) => {
     return {
         items: mock,
+        search: "",
+        setSearch: (search: string) => {
+            set(() => {
+                return {search}
+            })
+
+        },
         addItem: (payload: Omit<ItemI, "id">) => {
             set(({items}) => {
                 const newItem = {...payload, id: crypto.randomUUID()}

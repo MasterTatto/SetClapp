@@ -8,7 +8,11 @@ interface IProps {
 }
 
 const ListTable = ({openModal}: IProps) => {
-    const {items} = useTableStore()
+    const {items, search} = useTableStore()
+
+    const filteredItems = items.filter(item =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+    );
 
     const columns: TableProps<ItemI>['columns'] = [
         {
@@ -51,7 +55,8 @@ const ListTable = ({openModal}: IProps) => {
     ]
     return (
         <Wrapper>
-            <Table scroll={{x: 'max-content'}} pagination={false} rowKey={"id"} dataSource={items} columns={columns}/>
+            <Table scroll={{x: 'max-content'}} pagination={false} rowKey={"id"} dataSource={filteredItems}
+                   columns={columns}/>
         </Wrapper>
     );
 };
