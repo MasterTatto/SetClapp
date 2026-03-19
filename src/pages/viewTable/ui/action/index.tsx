@@ -17,7 +17,7 @@ const Action = ({openModal}: IProps) => {
     return (
         <Wrapper className={'flex items-center justify-between max-sm:flex-col max-sm:gap-4'}>
             <Title level={4} className={'!m-0'}>Список пользователей</Title>
-            <Search placeholder="input search text" onSearch={onSearch} style={{width: 200}}/>
+            <Search placeholder="Поиск по имени" className={'max-w-[340px] max-sm:max-w-full'} onSearch={onSearch}/>
             <Button onClick={openModal} size={'large'} className={'max-sm:w-full'} type="primary">Добавить поле</Button>
         </Wrapper>
     );
